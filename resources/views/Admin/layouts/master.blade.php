@@ -13,6 +13,8 @@
         <div class="search-overlay"></div>
         @include("Admin.layouts.sidebar-part")
         <div id="content" class="main-content">
+
+            @yield('content')
             @include("Admin.layouts.footer-tag")
         </div>
         @include("Admin.layouts.js")
