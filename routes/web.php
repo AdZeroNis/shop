@@ -11,6 +11,7 @@ Route::prefix("Account")->group(function () {
 
     Route::prefix("category")->group(function () {
 
-        Route::get('/account',[CategoryController::class,"create"])->name('Account.Category.Create');
+        Route::get('/create',[CategoryController::class,"create"])->name('Account.Category.Create');
+        Route::post('/create',[CategoryController::class,"storeImage"])->name('Account.Category.storeImage');
     });
 });
