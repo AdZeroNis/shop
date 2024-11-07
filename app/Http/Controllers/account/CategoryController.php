@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Container\Attributes\Cache;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CategoryController extends Controller
 {
@@ -21,10 +22,26 @@ class CategoryController extends Controller
         $dataForm["image"]=$imageName;
 
         Category::create($dataForm);
+        Alert::success('موفقیت', 'دسته بندی با موفقیت اضافه شد');
         return redirect()->route("Account.Category.Categories");
     }
     public function Categories(){
         $categories=Category::all();
         return view("Admin.Category.Categories",compact("categories"));
     }
+    public function Edit($id){
+        $category=Category::find($id);
+        return view("Admin.Category.Edit",compact("category"));
+}
+    public function update(Request $request, $id){
+         $category=Category::find($id);
+         $imageName=time().".".$request->image->extension();
+         $request->image->move(public_path("AdminAssets\Category-image"),$imageName);
+         $dataForm=$request->all();
+         $dataForm["image"]=$imageName;
+
+         $category->update($dataForm);
+        Alert::success('موفقیت', 'دسته بندی با موفقیت ویرایش شد');
+        return redirect()->route("Account.Category.Categories");
+}
 }
