@@ -21,6 +21,10 @@ class CategoryController extends Controller
         $dataForm["image"]=$imageName;
 
         Category::create($dataForm);
-        return redirect()->route("Account.Category.Create");
+        return redirect()->route("Account.Category.Categories");
+    }
+    public function Categories(){
+        $categories=Category::all();
+        return view("Admin.Category.Categories",compact("categories"));
     }
 }

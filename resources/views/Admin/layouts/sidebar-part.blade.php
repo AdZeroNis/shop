@@ -24,7 +24,7 @@
                         <a href="{{route("Account.Category.Create")}}">  اضافه کردن دسته بندی </a>
                     </li>
                     <li>
-                        <a href="index2.html"> لیست دسته بندی ها</a>
+                        <a href="{{route("Account.Category.Categories")}}"> لیست دسته بندی ها</a>
                     </li>
                 </ul>
             </li>
