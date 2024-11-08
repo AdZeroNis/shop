@@ -9,24 +9,27 @@
             <div class="form-row mb-4">
                 <div class="form-group col-md-6">
                     <label for="inputname4">نام محصول</label>
-                    <input type="text" class="form-control" id="inputname4" placeholder="نام محصول">
+                    <input type="text" name="name" class="form-control" id="inputname4" placeholder="نام محصول">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputprice4">قیمت محصول </label>
-                    <input type="text" class="form-control" id="inputprice4" placeholder="قیمت محصول ">
+                    <input type="text"  name="price" class="form-control" id="inputprice4" placeholder="قیمت محصول ">
                 </div>
             </div>
             <div class="form-row mb-4">
                 <div class="form-group col-md-6">
                     <label for="inventory"> تعداد موجودی</label>
-                    <input type="number" class="form-control" id="inventory" placeholder=" تعداد موجودی">
+                    <input type="number" name="inventory" class="form-control" id="inventory" placeholder=" تعداد موجودی">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="category">دسته بندی  محصولات </label>
-                    <select class="selectpicker form-control p-2" >
-                        <option>لورم</option>
-                        <option>لورم</option>
-                        <option>لورم</option>
+                    <select name="Id_category" class="selectpicker form-control p-2" >
+                        @foreach ($categories as $category )
+
+
+                        <option value="{{$category->id}}">{{$category->name}}</option>
+                        @endforeach
+
                     </select>
                 </div>
             </div>
@@ -35,7 +38,7 @@
             <div class="form-row mb-4">
                     <label for="inputState">توضیحات محصول</label>
 
-                <textarea  type="text" class="form-control" id="inputCity"></textarea>
+                <textarea name="description" type="text" class="form-control" id="inputCity"></textarea>
 
 
             </div>
