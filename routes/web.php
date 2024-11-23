@@ -23,5 +23,9 @@ Route::prefix("Account")->group(function () {
 
         Route::get('/create',[ProductController::class,"create"])->name('Account.Product.Create');
         Route::post('/create',[ProductController::class,"storeProduct"])->name('Account.Product.storeProduct');
+        Route::get('/Products',[ProductController::class,"Products"])->name('Account.Product.Products');
+        Route::get('/Edit/{id}',[ProductController::class,"Edit"])->name('Account.Product.Edit');
+        Route::post('/Edit/{id}',[ProductController::class,"update"])->name('Account.Product.update');
+        Route::get('/Delete/{id}',[ProductController::class,"Delete"])->name('Account.Product.Delete');
     });
 });

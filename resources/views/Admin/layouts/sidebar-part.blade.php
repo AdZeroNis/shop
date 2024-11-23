@@ -49,7 +49,7 @@
                         <a href="{{route("Account.Product.Create")}}">  اضافه کردن محصول  </a>
                     </li>
                     <li>
-                        <a href=""> لیست  محصولات</a>
+                        <a href="{{route("Account.Product.Products")}}"> لیست  محصولات</a>
                     </li>
                 </ul>
             </li>

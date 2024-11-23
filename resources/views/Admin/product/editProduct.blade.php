@@ -4,23 +4,23 @@
 @section("content")
 
 <div class="col-lg-12 col-12 layout-spacing">
-    <div class="statbox widget box box-shadow"">
-        <form action="{{route("Account.Product.storeProduct")}}" method="POST" enctype="multipart/form-data" id="my-form">
+    <div class="statbox widget box box-shadow">
+        <form action="{{route("Account.Product.update",$product->id)}}" method="POST" enctype="multipart/form-data" id="my-form">
             @csrf
             <div class="form-row mb-4">
                 <div class="form-group col-md-6">
                     <label for="inputname4">نام محصول</label>
-                    <input type="text" name="name" class="form-control" id="inputname4" placeholder="نام محصول">
+                    <input type="text" value="{{$product->name}}" name="name" class="form-control" id="inputname4" placeholder="نام محصول">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputprice4">قیمت محصول </label>
-                    <input type="text"  name="price" class="form-control" id="inputprice4" placeholder="قیمت محصول ">
+                    <input type="text" value="{{$product->price}}" name="price" class="form-control" id="inputprice4" placeholder="قیمت محصول ">
                 </div>
             </div>
             <div class="form-row mb-4">
                 <div class="form-group col-md-6">
                     <label for="inventory"> تعداد موجودی</label>
-                    <input type="number" name="inventory" class="form-control" id="inventory" placeholder=" تعداد موجودی">
+                    <input type="number" value="{{$product->inventory}}" name="inventory" class="form-control" id="inventory" placeholder=" تعداد موجودی">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="category">دسته بندی  محصولات </label>
@@ -37,7 +37,7 @@
             <div class="form-row mb-4">
                     <label for="inputState">توضیحات محصول</label>
 
-                <textarea name="description" type="text" class="form-control" id="inputCity"></textarea>
+                <textarea name="description" type="text" class="form-control" id="inputCity">{{$product->description}}</textarea>
 
 
             </div>
@@ -46,6 +46,7 @@
                 <label for="image_id" class="d-block">بارگذاری تصویر    </label>
 
                 <input name="image" type="file" class="form-control" id="image_id" placeholder="">
+                <span><img class="mt-2" src="{{asset("AdminAssets/Product-image/".$product->image)}}" width="65px" class="profile-img" alt="avatar"></span>
 
         </div>
 
