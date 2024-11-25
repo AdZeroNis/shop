@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\account\CategoryController;
 use App\Http\Controllers\account\ProductController;
+use App\Http\Controllers\Home\HomeController;
 use Illuminate\Support\Facades\Route;
+
+
 
 Route::get('/Account', function () {
     return view('Admin.index');
@@ -38,4 +41,11 @@ Route::prefix("Account")->group(function () {
         Route::get('/colors/{id}',[ProductController::class,"colors"])->name('Admin.Product.colors');
         Route::get('/DeleteColor/{id}',[ProductController::class,"colorDelete"])->name('Account.Product.colorDelete');
     });
+});
+
+
+Route::namespace("Home")->group(function () {
+
+    Route::get('/',[HomeController::class,"Home"])->name('Home');
+
 });
