@@ -27,5 +27,15 @@ Route::prefix("Account")->group(function () {
         Route::get('/Edit/{id}',[ProductController::class,"Edit"])->name('Account.Product.Edit');
         Route::post('/Edit/{id}',[ProductController::class,"update"])->name('Account.Product.update');
         Route::get('/Delete/{id}',[ProductController::class,"Delete"])->name('Account.Product.Delete');
+        //image
+        Route::get('/Createimage/{id}',[ProductController::class,"Createimage"])->name('Account.Product.Createimage');
+        Route::post('/Createimage/{id}',[ProductController::class,"storeimage"])->name('Account.Product.storeimage');
+        Route::get('/images/{id}',[ProductController::class,"images"])->name('Admin.Product.images');
+        Route::get('/DeleteImage/{id}',[ProductController::class,"imgDelete"])->name('Account.Product.imgDelete');
+        //color
+        Route::get('/Createcolor/{id}',[ProductController::class,"Createcolor"])->name('Account.Product.Createcolor');
+        Route::post('/Createcolor/{id}',[ProductController::class,"storecolor"])->name('Account.Product.storecolor');
+        Route::get('/colors/{id}',[ProductController::class,"colors"])->name('Admin.Product.colors');
+        Route::get('/DeleteColor/{id}',[ProductController::class,"colorDelete"])->name('Account.Product.colorDelete');
     });
 });
