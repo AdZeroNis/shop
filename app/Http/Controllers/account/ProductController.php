@@ -19,7 +19,7 @@ class ProductController extends Controller
         return view("Admin.product.createProduct",compact("categories"));
     }
     public function storeProduct(Request $request){
-
+        if($request->hasFile("image")){
         $imageName=time().".".$request->image->extension();
         $request->image->move(public_path("AdminAssets\Product-image"),$imageName);
         $dataForm=$request->all();
@@ -28,6 +28,7 @@ class ProductController extends Controller
         Product::create($dataForm);
         Alert::success('موفقیت', 'دسته بندی با موفقیت اضافه شد');
         return redirect()->route("Account.Product.Products");
+        }
     }
 
     public function Products(){

@@ -5,15 +5,28 @@ namespace App\Http\Controllers\Home;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\productcolors;
+use App\Models\productimages;
+use App\Models\slider;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function Home(){
-        $digitalCategory = Category::where('name', 'کالای دیجیتال')->first();
-        $digiProducts = Product::where('Id_category', $digitalCategory->id)->take(8)->get();
+    public function Home() {
+        $digiCategories = Category::with('products')->get(); // دریافت دسته‌بندی‌ها همراه با محصولات مرتبط
+        $sliderImages = slider::all(); // دریافت اسلایدر
+        $ProductRandom = Product::inRandomOrder()->take(1)->get(); // دریافت یک محصول تصادفی
 
-        return view('Home.index', compact('digiProducts'));
+        return view('Home.index', compact('digiCategories', 'ProductRandom', 'sliderImages'));
+    }
+
+
+    public function product($id){
+        $products=Product::find($id);
+        $productImages=productimages::all();
+        $productColors=productcolors::all();
+        // 'productImage','productColor'
+        return view('Home.layouts.single', compact('products','productColors','productImages'));
     }
 
 }

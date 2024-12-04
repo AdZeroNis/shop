@@ -15,6 +15,6 @@ class Product extends Model
     // رابطه محصول با دسته‌بندی
     public function category()
     {
-        return $this->belongsTo(Category::class, 'Id_category');
+        return $this->belongsTo(Category::class, 'Id_category', 'id');
     }
 }
