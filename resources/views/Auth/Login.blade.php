@@ -20,7 +20,7 @@
                   <div class="row justify-content-center">
                     <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
 
-                      <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign in</p>
+                      <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">ورود</p>
 
 
                         <form class="mx-1 mx-md-4" action="{{route('Login')}}" method="POST" enctype="multipart/form-data" id="my-form" >
@@ -30,7 +30,7 @@
                           <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                           <div data-mdb-input-init class="form-outline flex-fill mb-0">
                             <input type="email" name="email" id="form3Example3c" class="form-control" />
-                            <label class="form-label" for="form3Example3c">Your Email</label>
+                            <label class="form-label" for="form3Example3c">ایمیل</label>
                           </div>
                         </div>
 
@@ -46,16 +46,16 @@
                           <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                           <div data-mdb-input-init class="form-outline flex-fill mb-0">
                             <input type="password" name="password" id="form3Example4c" class="form-control" />
-                            <label class="form-label" for="form3Example4c">Password</label>
+                            <label class="form-label" for="form3Example4c">رمز</label>
                           </div>
                         </div>
 
 
 
                         <div class="form-check d-flex justify-content-center mb-5">
-                          <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
+                          {{-- <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" /> --}}
                           <label class="form-check-label" for="form2Example3">
-                            I agree all statements in <a href="#!">Terms of service</a>
+                           اگر حساب کاربری ندارید ثبت نام کنید:<a href="{{route("Register")}}"> ثبت نام </a>
                           </label>
                         </div>
 

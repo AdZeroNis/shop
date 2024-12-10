@@ -1,18 +1,21 @@
 <?php
 
 use App\Http\Middleware\IsAdmin;
-use App\Http\Controllers\Account\CategoryController;
-use App\Http\Controllers\Account\ProductController;
-use App\Http\Controllers\Admin\SliderController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Home\HomeController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Home\ProfileController;
+use App\Http\Controllers\Account\ProductController;
+use App\Http\Controllers\Account\CategoryController;
 
 // مسیرهای مربوط به مدیریت (فقط برای کاربران ادمین)
 Route::middleware([IsAdmin::class])->prefix("Account")->group(function () {
 
     // مسیرهای مربوط به دسته‌بندی
     Route::prefix("category")->group(function () {
+
         Route::get('/create', [CategoryController::class, "create"])->name('Account.Category.Create');
         Route::post('/create', [CategoryController::class, "storeImage"])->name('Account.Category.storeImage');
         Route::get('/Categories', [CategoryController::class, "Categories"])->name('Account.Category.Categories');
@@ -66,4 +69,10 @@ Route::namespace("Auth")->group(function () {
     Route::get('/Login', [AuthController::class, "FormLogin"])->name('FormLogin');
     Route::post('/Login', [AuthController::class, "Login"])->name('Login');
 
+    Route::get('/profile', [AuthController::class, 'ShowProfile'])->name('ShowProfile');
+
 });
+
+
+
+

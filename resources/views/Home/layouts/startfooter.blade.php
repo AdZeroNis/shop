@@ -22,7 +22,7 @@
         <div class="row">
             <div class="col">
                 <div class="box_footer_links">
-                    <p><a href="#">راهنمایی خرید از دیجی کالا</a></p>
+                    <p><a href="#">راهنمایی خرید از  ایبولک</a></p>
                     <ul>
                         <li><a href="#">نحوه ثبت سفارش</a></li>
                         <li><a href="#">رویه ارسال سفارش</a></li>
@@ -43,34 +43,34 @@
             </div>
             <div class="col">
                 <div class="box_footer_links">
-                    <p><a href="#">با دیجی‌کالا</a></p>
+                    <p><a href="#">با ایبولک</a></p>
                     <ul>
-                        <li><a href="#">فروش در دیجی‌کالا</a></li>
+                        <li><a href="#">فروش در ایبولک</a></li>
                         <li><a href="#">همکاری با سازمان‌ها</a></li>
                         <li><a href="#">فرصت‌های شغلی</a></li>
-                        <li><a href="#">تماس با دیجی‌کالا</a></li>
-                        <li><a href="#">درباره دیجی‌کالا</a></li>
+                        <li><a href="#">تماس با ایبولک</a></li>
+                        <li><a href="#">درباره ایبولک</a></li>
                     </ul>
                 </div>
             </div>
             <div class="col mt-3 mt-sm-0">
                 <div class="footer_form">
-                    <p>از تخفیف‌ها و جدیدترین‌های دیجی‌کالا باخبر شوید:
-                    </p>
+                    {{-- <p>از تخفیف‌ها و جدیدترین‌های دیجی‌کالا باخبر شوید:
+                    </p> --}}
                     <form>
                         <div class="input-group text-right">
-                            <input type="text" class="form-control rounded-right bg-white input_search" placeholder="آدرس ایمیل خود را وارد کنید">
+                            {{-- <input type="text" class="form-control rounded-right bg-white input_search" placeholder="آدرس ایمیل خود را وارد کنید"> --}}
                             <div class="input-group-prepend">
                                 <div class="input-group-text bg-info border-0 custom-input-group-text rounded-left">
-                                    <a href="#" class="text-white">ارسال</a>
+                                    {{-- <a href="#" class="text-white">ارسال</a> --}}
                                 </div>
                             </div>
                         </div>
                     </form>
-                    <p class="pt-4">دیجی‌کالا را در شبکه‌های اجتماعی دنبال کنید:
+                    <p class="pt-4">ایبولک را در شبکه‌های اجتماعی دنبال کنید:
                     </p>
                     <div class="social_instagram text-center">
-                        <a href="#"><img src="img/instagrams.svg" class="px-1" alt="">اینستاگرام دیجی کالا</a>
+                        <a href="#"><img src="img/instagrams.svg" class="px-1" alt="">اینستاگرام ایبولک </a>
                     </div>
                 </div>
             </div>

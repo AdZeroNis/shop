@@ -48,4 +48,16 @@ class AuthController extends Controller
           return redirect()->route("FormRegister")->with('error',"ایمیل یا رمز غلط است");
      }
     }
+    public function ShowProfile() {
+        // دریافت کاربر جاری
+        $user = Auth::user();
+
+        // بررسی اینکه آیا کاربری وارد شده است یا خیر
+        if (!$user) {
+            return redirect()->route('ShowProfile')->with('error', 'User not found');
+        }
+
+        // ارسال کاربر به ویو برای نمایش پروفایل
+        return view('Auth.profile', compact('user'));
+    }
 }

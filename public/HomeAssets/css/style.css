@@ -43,7 +43,7 @@ a {
 }
 
 .logo {
-    height: 74px;
+    height: 59px;
     display: block;
     text-align: right;
     background: url("https://ibolak.com/storage/image/2024/6/1718807353-TCMlDRbPFbA1CHFG.svg") no-repeat 100%;
@@ -246,7 +246,7 @@ a {
     height: 100%;
     width: 100%;
     max-width: 100%;
-    background-image: url(../img/coundown03.jpg);
+    background-image: url(https://ibolak.com/storage/image/2024/8/1723454409-8xNmPrzWuTw3diVt.gif);
     margin: 0 auto;
     background-size: auto 100%;
     background-repeat: no-repeat;
@@ -1651,9 +1651,18 @@ input[type="checkbox"].bigswitch.ios-switch:checked + div > div {
     bottom: 25px;
     padding: 0 29px ;
 }
+.btn-outline-info {
+    color: #000;
+    background-color: transparent;
+    background-image: none;
+    border-color: #000 !important;
+}
 
-
-
+.btn-outline-info:hover {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
 
 
 

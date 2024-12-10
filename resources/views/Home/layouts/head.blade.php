@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{asset("HomeAssets/css/font-awesome.min.css")}}">
     <link rel="stylesheet" href="{{asset("HomeAssets/css/style.css")}}">
 
+
     <link rel="stylesheet" href="{{asset("HomeAssets/css/slider/css1.css")}}" media="screen and (max-width: 1365px)"/>
     <link rel="stylesheet" href="{{asset("HomeAssets/css/slider/css2.css")}}" media="screen and (min-width: 1366px)"/>
     <link rel="stylesheet" href="{{asset("HomeAssets/css/slider/css3.css")}}" media="screen and (min-width: 1680px)"/>
