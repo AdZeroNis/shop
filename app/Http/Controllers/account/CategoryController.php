@@ -11,21 +11,30 @@ use Illuminate\Support\Facades\File;
 
 class CategoryController extends Controller
 {
-    public function create(){
+    public function show(){
         return view("Admin.Category.CreateCategory");
     }
 
-    public function storeImage(Request $request){
+    public function storeImage(Request $request) {
 
-        $imageName=time().".".$request->image->extension();
-        $request->image->move(public_path("AdminAssets\Category-image"),$imageName);
-        $dataForm=$request->all();
-        $dataForm["image"]=$imageName;
 
-        Category::create($dataForm);
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'status' => 'required|in:0,1,2',
+        ]);
+
+
+        Category::create([
+            'name' => $request->input('name'),
+            'status' => $request->input('status'),
+        ]);
+
+
         Alert::success('موفقیت', 'دسته بندی با موفقیت اضافه شد');
-        return redirect()->route("Account.Category.Categories");
+        return redirect()->route("Account.Product.Products");
     }
+
+
     public function Categories(){
         $categories=Category::all();
         return view("Admin.Category.Categories",compact("categories"));
@@ -34,38 +43,52 @@ class CategoryController extends Controller
         $category=Category::find($id);
         return view("Admin.Category.Edit",compact("category"));
 }
-public function update(Request $request, $id){
+public function update(Request $request, $id) {
     $category = Category::find($id);
+    $dataForm=$request->all();
 
-    if($request->hasFile('image')) {
-        // آپلود تصویر جدید
-        $imageName = time() . "." . $request->image->extension();
-        $request->image->move(public_path("AdminAssets\Category-image"), $imageName);
-        $dataForm = $request->all();
-        $dataForm["image"] = $imageName;
 
-        // حذف تصویر قبلی اگر وجود داشت
-        $picture = public_path("AdminAssets\Category-image/") . $category->image;
-        if(File::exists($picture)){
-            File::delete($picture);
-        }
+    $category->update($dataForm);
 
-        // آپدیت دسته‌بندی با داده‌های جدید
-        $category->update($dataForm);
-        Alert::success('موفقیت', 'دسته بندی با موفقیت ویرایش شد');
-        return redirect()->route("Account.Category.Categories");
-    }
+    Alert::success('موفقیت', 'دسته بندی با موفقیت ویرایش شد');
+    return redirect()->route("Account.Category.Categories");
 }
+
 public function Delete($id){
     $category=Category::find($id);
-       // حذف تصویر قبلی اگر وجود داشت
-       $picture = public_path("AdminAssets\Category-image/") . $category->image;
-       if(File::exists($picture)){
-           File::delete($picture);
-       }
      $category->delete();
      Alert::success('موفقیت', 'دسته بندی با موفقیت حذف شد');
      return redirect()->route("Account.Category.Categories");
 }
+public function index(Request $request)
+{
+    $query = Category::query();
+
+    if ($request->has('search') && $request->search != '') {
+        $query->where('name', 'like', '%' . $request->search . '%');
+    }
+
+
+    if ($request->has('status') && $request->status !== '') {
+
+        if ($request->status == 'active') {
+            $query->where('status', 1);
+        } elseif ($request->status == 'inactive') {
+            $query->where('status', 0);
+        }
+    }
+
+    $categories = $query->get();
+
+
+    return view('Admin.Category.Index', [
+        'categories' => $categories,
+        'search' => $request->search,
+        'status' => $request->status
+    ]);
+}
+
+
 
 }
+

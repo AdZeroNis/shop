@@ -9,14 +9,15 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create('productimages', function (Blueprint $table) {
+        Schema::create('order_items', function (Blueprint $table) {
             $table->id();
-            $table->text('images');
-            $table->foreignId('Id_product')->constrained("products");
-            $table->timestamps();
+            $table->foreignId('order_id')->nullable()->constrained('orders');
+            $table->foreignId('product_id')->nullable()->constrained('products');
+            $table->timestamps();  // Adds both created_at and updated_at fields
         });
+
     }
 
     /**
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('productimages');
+        //
     }
 };

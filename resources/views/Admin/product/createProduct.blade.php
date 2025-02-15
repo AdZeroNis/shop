@@ -4,7 +4,7 @@
 @section("content")
 
 <div class="col-lg-12 col-12 layout-spacing">
-    <div class="statbox widget box box-shadow"">
+    <div class="statbox widget box box-shadow">
         <form action="{{route("Account.Product.storeProduct")}}" method="POST" enctype="multipart/form-data" id="my-form">
             @csrf
             <div class="form-row mb-4">
@@ -30,6 +30,7 @@
                         @endforeach
                     </select>
 
+
                 </div>
             </div>
 
@@ -48,7 +49,15 @@
                 <input name="image" type="file" class="form-control" id="image_id" placeholder="">
 
         </div>
-
+        <div class="row mb-4">
+            <div class="col">
+                <label for="status" class="d-block">وضعیت</label>
+                <select name="status" id="status" class="form-control" required>
+                    <option value="1">فعال</option>
+                    <option value="0">غیرفعال</option>
+                </select>
+            </div>
+        </div>
           <button type="submit" class="btn btn-primary mt-3">افزودن محصول</button>
         </form>
     </div>

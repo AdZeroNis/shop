@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\File;
 
 class ProductController extends Controller
 {
-    public function create(){
+    public function show(){
 
         $categories=Category::all();
         return view("Admin.product.createProduct",compact("categories"));
@@ -41,30 +41,31 @@ class ProductController extends Controller
         $product= product::find($id);
         return view("Admin.product.editProduct",compact("categories","product"));
 }
-public function update(Request $request, $id){
-    // $category = Category::all();
-    $product= Product::find($id);
+public function update(Request $request, $id) {
+    $product = Product::find($id);
 
-    if($request->hasFile('image')) {
-        // آپلود تصویر جدید
+
+    $dataForm = $request->except('image');
+
+
+    if ($request->hasFile('image')) {
         $imageName = time() . "." . $request->image->extension();
-        $request->image->move(public_path("AdminAssets\Product-image"), $imageName);
-        $dataForm = $request->all();
-        $dataForm["image"] = $imageName;
+        $request->image->move(public_path("AdminAssets/Product-image"), $imageName);
+        $dataForm['image'] = $imageName;
 
-        // حذف تصویر قبلی اگر وجود داشت
-        $picture = public_path("AdminAssets\Product-image/") . $product->image;
-        if(File::exists($picture)){
+
+        $picture = public_path("AdminAssets/Product-image/") . $product->image;
+        if (File::exists($picture)) {
             File::delete($picture);
         }
-
-        // آپدیت  با داده‌های جدید
-        $product->update($dataForm);
-        Alert::success('موفقیت', 'محصول  با موفقیت ویرایش شد');
-        return redirect()->route("Account.Product.Products");
     }
 
+    $product->update($dataForm);
+
+    Alert::success('موفقیت', 'محصول با موفقیت ویرایش شد');
+    return redirect()->route("Account.Product.Products");
 }
+
 public function Delete($id){
     $product=Product::find($id);
        // حذف تصویر قبلی اگر وجود داشت
@@ -76,63 +77,40 @@ public function Delete($id){
      Alert::success('موفقیت', 'دسته بندی با موفقیت حذف شد');
      return redirect()->route("Account.Product.Products");
 }
-public function Createimage($id){
-       return view("Admin.product.createimage",compact("id"));
-}
-public function storeimage(Request $request, $id){
+public function index(Request $request)
+{
+    $query = Product::query();
 
-    $product= Product::find($id);
-
-    if($request->hasFile('image')) {
-        // آپلود تصویر جدید
-        $imageName = time() . "." . $request->image->extension();
-        $request->image->move(public_path("AdminAssets\Product-image"), $imageName);
-
+    if ($request->has('search') && $request->search != '') {
+        $query->where('name', 'like', '%' . $request->search . '%');
     }
 
-    $dataForm['images'] = $imageName;
-    $dataForm['Id_product'] = $id;
-    productimages::create($dataForm);
-    return redirect()->route("Account.Product.Products");
 
-}
-public function images($id){
-    $products=Product::find($id);
-    $productImages = ProductImages::all();
-    return view("Admin.product.images",compact("products","productImages"));
-}
-public function imgDelete($id){
-    $images=productimages::find($id);
-       // حذف تصویر قبلی اگر وجود داشت
-       $picture = public_path("AdminAssets\Product-image/") . $images->images;
-       if(File::exists($picture)){
-           File::delete($picture);
-       }
-     $images->delete();
-     Alert::success('موفقیت', 'دسته بندی با موفقیت حذف شد');
-     return redirect()->route("Account.Product.Products");
-}
-public function Createcolor($id){
-    return view("Admin.product.createcolor",compact("id"));
-}
-public function storecolor(Request $request, $id){
+    if ($request->has('status') && $request->status !== '') {
 
-    $dataForm=$request->all();
-    $dataForm['Id_product'] = $id;
-    productcolors::create($dataForm);
-    return redirect()->route("Account.Product.Products");
+        if ($request->status == 'active') {
+            $query->where('status', 1);
+        } elseif ($request->status == 'inactive') {
+            $query->where('status', 0);
+        }
+    }
+    if ($request->has('Id_category') && $request->Id_category != '') {
+        $query->whereHas('category', function ($q) use ($request) {
+            $q->where('id', $request->Id_category);
+        });
+    }
 
-}
-public function colors($id){
-    $products=Product::find($id);
-    $productColors = productcolors::all();
-    return view("Admin.product.colors",compact("products","productColors"));
-}
-public function colorDelete($id){
-    $colors=productcolors::find($id);
+    $products = $query->get();
 
-     $colors->delete();
-     Alert::success('موفقیت', 'دسته بندی با موفقیت حذف شد');
-     return redirect()->route("Account.Product.Products");
+
+    $categories = Category::all();
+
+    return view('Admin.product.Index', [
+        'products' => $products,
+        'categories' => $categories,
+        'search' => $request->search,
+        'status' => $request->status,
+        'Id_category' => $request->Id_category
+    ]);
 }
 }

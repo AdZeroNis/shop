@@ -5,23 +5,29 @@
 
 <div class="col-lg-12 col-12 layout-spacing">
     <div class="statbox widget box box-shadow">
-        <form action="{{route("Account.Category.update",$category->id)}}" method="POST" enctype="multipart/form-data" id="my-form">
+        <form action="{{ route('Account.Category.update', $category->id) }}" method="POST" enctype="multipart/form-data" id="my-form">
             @csrf
             <div class="row mb-4">
                 <div class="col">
-                    <label for="name_id" class="d-block">نام دسته بندی </label>
-                    <input id="name_id" value="{{$category->name}}" name="name" type="text" class="form-control" placeholder="نام دسته بندی ">
-                </div>
-                <div class="col">
-                    <label for="image_id" class="d-block">بارگذاری تصویر    </label>
-
-                    <input type="file"name="image" class="form-control" id="image_id" placeholder="">
-                    <img src="{{asset("AdminAssets/Category-image/".$category->image)}}" width="65px" >
+                    <label for="name_id" class="d-block">نام دسته بندی</label>
+                    <input id="name_id" value="{{ old('name', $category->name) }}" name="name" type="text" class="form-control" placeholder="نام دسته بندی">
                 </div>
             </div>
+
+            <div class="row mb-4">
+                <div class="col">
+                    <label for="status" class="d-block">وضعیت</label>
+                    <select name="status" id="status" class="form-control" required>
+                        <option value="1" {{ $category->status == 1 ? 'selected' : '' }}>فعال</option>
+                        <option value="0" {{ $category->status == 0 ? 'selected' : '' }}>غیرفعال</option>
+                        <option value="2" {{ $category->status == 2 ? 'selected' : '' }}>همه</option>
+                    </select>
+                </div>
+            </div>
+
             <button type="submit" name="sub" class="btn btn-primary">ویرایش دسته بندی</button>
-            {{-- <input type="submit" name="sub" class="btn btn-primary" value="ثبت دسته بندی"> --}}
         </form>
+
     </div>
 </div>
 

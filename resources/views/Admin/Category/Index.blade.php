@@ -9,7 +9,7 @@
                     <div class="widget-header">
                         <div class="row">
                             <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                               
+
                             </div>
                         </div>
                     </div>
@@ -18,7 +18,7 @@
                         <form method="GET" action="{{ route('Account.Category.Index') }}" class="mb-4">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <input type="text" name="search" class="form-control" placeholder="جستجو بر اساس نام دسته بندی" value="{{ request('search') }}">
+                                    <input type="text" name="search" class="form-control" placeholder="جستجو بر اساس نام دسته بندی" value="{{ old('search', request('search')) }}">
                                 </div>
                                 <div class="col-md-4">
                                     <select name="status" class="form-control">
@@ -32,6 +32,7 @@
                                 </div>
                             </div>
                         </form>
+
 
                         <div class="table-responsive mb-4">
                             <table id="style-3" class="table style-3  table-hover">

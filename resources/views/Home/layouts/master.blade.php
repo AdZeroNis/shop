@@ -5,7 +5,7 @@
 
 <body>
   @include("Home.layouts.header")
-  @include("Home.layouts.menu")
+  
 
   @yield("content")
 

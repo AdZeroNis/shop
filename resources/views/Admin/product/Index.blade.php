@@ -1,8 +1,6 @@
-@extends("Admin.layouts.master");
+@extends('Admin.layouts.master')
 
-
-@section("content")
-
+@section('content')
 <div class="col-lg-12 col-12 layout-spacing">
     <div class="statbox widget box box-shadow">
         <div class="row layout-spacing">
@@ -16,6 +14,7 @@
                         </div>
                     </div>
                     <div class="widget-content widget-content-area">
+                        <!-- Search and Filter Form -->
                         <form method="GET" action="{{ route('Account.Product.Index') }}" class="mb-4">
                             <div class="row">
                                 <div class="col-md-4">
@@ -37,10 +36,12 @@
                                     </select>
                                 </div>
                                 <div class="col-md-4">
-                                    <button type="submit" class="btn btn-primary" style="margin: 5px">جستجو</button>
+                                    <button type="submit" class="btn btn-primary">جستجو</button>
                                 </div>
                             </div>
-                        </form>
+                        </form>>
+
+
                         <div class="table-responsive mb-4">
                             <table id="style-3" class="table style-3  table-hover">
                                 <thead>
@@ -106,9 +107,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 </div>
-
 @endsection
-

@@ -9,6 +9,8 @@ use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Home\ProfileController;
 use App\Http\Controllers\Account\ProductController;
 use App\Http\Controllers\Account\CategoryController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\UserController;
 
 // مسیرهای مربوط به مدیریت (فقط برای کاربران ادمین)
 Route::middleware([IsAdmin::class])->prefix("Account")->group(function () {
@@ -16,34 +18,37 @@ Route::middleware([IsAdmin::class])->prefix("Account")->group(function () {
     // مسیرهای مربوط به دسته‌بندی
     Route::prefix("category")->group(function () {
 
-        Route::get('/create', [CategoryController::class, "create"])->name('Account.Category.Create');
+        Route::get('/index', [CategoryController::class, 'index'])->name('Account.Category.Index');
+        Route::get('/show', [CategoryController::class, "show"])->name('Account.Category.Create');
         Route::post('/create', [CategoryController::class, "storeImage"])->name('Account.Category.storeImage');
         Route::get('/Categories', [CategoryController::class, "Categories"])->name('Account.Category.Categories');
         Route::get('/Edit/{id}', [CategoryController::class, "Edit"])->name('Account.Category.Edit');
-        Route::post('/Edit/{id}', [CategoryController::class, "update"])->name('Account.Category.update');
+        Route::post('/Update/{id}', [CategoryController::class, "update"])->name('Account.Category.update');
         Route::get('/Delete/{id}', [CategoryController::class, "Delete"])->name('Account.Category.Delete');
+
     });
 
     // مسیرهای مربوط به محصول
     Route::prefix("Product")->group(function () {
-        Route::get('/create', [ProductController::class, "create"])->name('Account.Product.Create');
+        Route::get('/index', [ProductController::class, 'index'])->name('Account.Product.Index');
+        Route::get('/show', [ProductController::class, "show"])->name('Account.Product.Create');
         Route::post('/create', [ProductController::class, "storeProduct"])->name('Account.Product.storeProduct');
         Route::get('/Products', [ProductController::class, "Products"])->name('Account.Product.Products');
         Route::get('/Edit/{id}', [ProductController::class, "Edit"])->name('Account.Product.Edit');
-        Route::post('/Edit/{id}', [ProductController::class, "update"])->name('Account.Product.update');
+        Route::post('/Update/{id}', [ProductController::class, "update"])->name('Account.Product.update');
         Route::get('/Delete/{id}', [ProductController::class, "Delete"])->name('Account.Product.Delete');
+    });
+    Route::prefix("User")->group(function () {
+        Route::get('/index', [UserController::class, 'index'])->name('Account.User.Index');
+        Route::post('/create', [UserController::class, "storeUser"])->name('Account.User.storeUser');
+        Route::get('/users', [UserController::class, "Users"])->name('Account.User.Users');
+        Route::get('/Edit/{id}', [UserController::class, "Edit"])->name('Account.User.Edit');
+        Route::post('/Update/{id}', [UserController::class, "update"])->name('Account.User.update');
+        Route::get('/Delete/{id}', [UserController::class, "Delete"])->name('Account.User.Delete');
+    });
+    Route::prefix("dashboard")->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'count'])->name('dashboard');
 
-        // مسیرهای مربوط به تصاویر
-        Route::get('/Createimage/{id}', [ProductController::class, "Createimage"])->name('Account.Product.Createimage');
-        Route::post('/Createimage/{id}', [ProductController::class, "storeimage"])->name('Account.Product.storeimage');
-        Route::get('/images/{id}', [ProductController::class, "images"])->name('Admin.Product.images');
-        Route::get('/DeleteImage/{id}', [ProductController::class, "imgDelete"])->name('Account.Product.imgDelete');
-
-        // مسیرهای مربوط به رنگ‌ها
-        Route::get('/Createcolor/{id}', [ProductController::class, "Createcolor"])->name('Account.Product.Createcolor');
-        Route::post('/Createcolor/{id}', [ProductController::class, "storecolor"])->name('Account.Product.storecolor');
-        Route::get('/colors/{id}', [ProductController::class, "colors"])->name('Admin.Product.colors');
-        Route::get('/DeleteColor/{id}', [ProductController::class, "colorDelete"])->name('Account.Product.colorDelete');
     });
 });
 
@@ -72,6 +77,9 @@ Route::namespace("Auth")->group(function () {
     Route::get('/profile', [AuthController::class, 'ShowProfile'])->name('ShowProfile');
 
 });
+
+
+
 
 
 

@@ -9,7 +9,7 @@ class Product extends Model
 {
     use HasFactory;
 
-    // فیلدهای محافظت‌شده
+
     protected $guarded = ["id"];
 
     // رابطه محصول با دسته‌بندی

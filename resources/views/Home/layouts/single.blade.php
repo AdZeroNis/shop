@@ -21,10 +21,7 @@
             <div class="row">
                 <div class="col-lg-2 col-2 gallery_options">
                     <ul class="list-inline">
-                        <li><a href="#"><i class="material-icons">favorite_border</i></a></li>
-                        <li><a href="#"><i class="material-icons">share</i></a></li>
-                        <li><a href="#"><i class="material-icons">hdr_strong</i></a></li>
-                        <li><a href="#"><i class="material-icons">timeline</i></a></li>
+
                     </ul>
                 </div>
                 <div class="col-lg-9 col-10">
@@ -33,11 +30,7 @@
                     </div>
                     <div class="box_list_img mt-3 pt-0 pt-md-5 text-center">
                         <ul class="list-inline">
-                            @foreach ( $productImages as $productImage )
-                            @if ($productImage->Id_product==$products->id)
-                            <li class="list-inline-item"><img src="{{asset("AdminAssets/Product-image/".$productImage->images)}}" alt=""></li>
-                            @endif
-                            @endforeach
+
 
                             <li class="list-inline-item"><i class="material-icons">more_horiz</i></li>
                         </ul>
@@ -72,28 +65,15 @@
                                 <span>متفرقه</span>
                             </li> --}}
                             <li class="list-inline-item pr-3">
-                                <span>دسته بندی</span>
+                                {{-- <span>دسته بندی</span>
                                 :
-                                <span><a href="#">هنذفری</a></span>
+                                <span><a href="#">هنذفری</a></span> --}}
                             </li>
                         </ul>
                     </div>
                     <div class="box_color mt-1 text-center text-md-left">
                         <ul class="list-inline">
                             <li class="list-inline-item title">انتخاب رنگ :</li>
-                            @foreach ( $productColors as $productColor )
-                            @if ($productColor->Id_product==$products->id)
-
-
-                            <a href="">
-                                <li class="list-inline-item box_check1">
-                                    <div class="check1" style="background-color: {{$productColor->colors}}"><span>{{$productColor->name}}</span></div>
-                                </li>
-                            </a>
-                            @endif
-                            @endforeach
-
-
                         </ul>
                     </div>
                     <br>

@@ -49,8 +49,18 @@
                 <span><img class="mt-2" src="{{asset("AdminAssets/Product-image/".$product->image)}}" width="65px" class="profile-img" alt="avatar"></span>
 
         </div>
+        <div class="row mb-4">
+            <div class="col">
+                <label for="status" class="d-block">وضعیت</label>
+                <select name="status" id="status" class="form-control" required>
+                    <option value="1" {{ $category->status == 1 ? 'selected' : '' }}>فعال</option>
+                    <option value="0" {{ $category->status == 0 ? 'selected' : '' }}>غیرفعال</option>
+                    <option value="2" {{ $category->status == 2 ? 'selected' : '' }}>همه</option>
+                </select>
+            </div>
+        </div>
 
-          <button type="submit" class="btn btn-primary mt-3">افزودن محصول</button>
+          <button type="submit" class="btn btn-primary mt-3">ویرایش محصول</button>
         </form>
     </div>
 </div>

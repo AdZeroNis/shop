@@ -39,35 +39,44 @@
                         ورود/ثبت نام
                     </a>
                 @endauth
+
                 <div class="dropdown-menu border-0 shadow rounded-0 dropdown-menu_custom text-center"
                      aria-labelledby="dropdownMenuButton">
+
+                    @guest
                     <div class="btn login_box">
-                        <a class="dropdown-item dropdown-item-custom py-2 btn btn-info" style="    background-color: rgba(252, 189, 21, 1); !important" href="{{ route('FormLogin') }}">ورود به ایبولک</a>
+                        <a class="dropdown-item dropdown-item-custom py-2 btn btn-info" style="background-color: rgba(252, 189, 21, 1);" href="{{ route('FormLogin') }}">ورود به ایبولک</a>
                     </div>
                     <ul class="list-inline register">
                         <li class="list-inline-item">کاربر جدید هستید؟</li>
                         <li class="list-inline-item"><a href="{{ route('FormRegister') }}">ثبت نام</a></li>
                     </ul>
+                    @endguest
+
+                    @auth
                     <div class="dropdown-divider"></div>
                     <div class="text-left">
-                        @auth
-                            @if (auth()->user()->user_role == 1)
-                                <!-- لینک به پنل ادمین -->
-                                <button onclick="location.href='{{ route('Account.Category.Categories') }}'" class="dropdown-item border-0 dropdown-item_custom" type="button">
-                                    <i class="material-icons profile_link pr-2"></i>پنل ادمین
-                                </button>
-                            @else
-                                <!-- لینک به پروفایل کاربر -->
-                                <button onclick="location.href='{{ route('ShowProfile', ['id' => Auth::user()->id]) }}'" class="dropdown-item border-0 dropdown-item_custom" type="button">
-                                    <i class="material-icons profile_link pr-2"></i>پروفایل
-                                </button>
-                            @endif
-                        @endauth
+                        @if (auth()->user()->user_role == 1)
+                            <!-- لینک به پنل ادمین -->
+                            <button onclick="location.href='{{ route('dashboard') }}'" class="dropdown-item border-0 dropdown-item_custom" type="button">
+                                <i class="material-icons profile_link pr-2"></i>پنل ادمین
+                            </button>
+                            <button onclick="location.href='{{ route('ShowProfile', ['id' => Auth::user()->id]) }}'" class="dropdown-item border-0 dropdown-item_custom" type="button">
+                                <i class="material-icons profile_link pr-2"></i>پروفایل
+                            </button>
+                        @else
+                            <!-- لینک به پروفایل کاربر -->
+                            <button onclick="location.href='{{ route('ShowProfile', ['id' => Auth::user()->id]) }}'" class="dropdown-item border-0 dropdown-item_custom" type="button">
+                                <i class="material-icons profile_link pr-2"></i>پروفایل
+                            </button>
+                        @endif
                     </div>
+                    @endauth
 
                 </div>
             </div>
         </div>
+
         <div class="col-lg-2 col-md-2 col-sm-2 col-6 col-sm-2 col-6 text-right">
             <a href="#" class="btn btn-outline-info"><i class="material-icons shopping_cart">shopping_cart</i> سبد خرید
                 <span>۰</span></a>

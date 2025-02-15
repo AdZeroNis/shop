@@ -20,8 +20,21 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+         'phone',
+         'address',
+         'status'
     ];
 
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    // Relation to the Basket model (a user can have one or many items in their basket)
+    public function basket()
+    {
+        return $this->hasMany(Basket::class);
+    }
     /**
      * The attributes that should be hidden for serialization.
      *

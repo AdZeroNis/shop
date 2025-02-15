@@ -23,10 +23,8 @@ class HomeController extends Controller
 
     public function product($id){
         $products=Product::find($id);
-        $productImages=productimages::all();
-        $productColors=productcolors::all();
-        // 'productImage','productColor'
-        return view('Home.layouts.single', compact('products','productColors','productImages'));
+
+        return view('Home.layouts.single', compact('products'));
     }
 
 }
