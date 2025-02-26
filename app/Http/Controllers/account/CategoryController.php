@@ -56,6 +56,11 @@ public function update(Request $request, $id) {
 
 public function Delete($id){
     $category=Category::find($id);
+    if ($category->products()->exists()) {
+
+        Alert::error('خطا', 'این دسته بندی دارای  محصول  است و نمی‌توان آن را حذف کرد.');
+        return redirect()->route("Account.Category.Categories");
+    }
      $category->delete();
      Alert::success('موفقیت', 'دسته بندی با موفقیت حذف شد');
      return redirect()->route("Account.Category.Categories");

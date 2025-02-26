@@ -18,7 +18,8 @@ class ProductController extends Controller
         $categories=Category::all();
         return view("Admin.product.createProduct",compact("categories"));
     }
-    public function storeProduct(Request $request){
+    public function storeProduct(Request $request)
+    {
         if($request->hasFile("image")){
         $imageName=time().".".$request->image->extension();
         $request->image->move(public_path("AdminAssets\Product-image"),$imageName);

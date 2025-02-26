@@ -24,7 +24,15 @@ class HomeController extends Controller
     public function product($id){
         $products=Product::find($id);
 
-        return view('Home.layouts.single', compact('products'));
+        return view('Home.single', compact('products'));
     }
+    public function showCategoryProducts($id)
+{
+    $category = Category::findOrFail($id);
+    $products = Product::where('Id_category', $id)->where('status', 1)->get(); // Only active products
+
+    return view('Home.category_products', compact('category', 'products'));
+}
+
 
 }

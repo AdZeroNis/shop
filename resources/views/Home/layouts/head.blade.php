@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{{asset("HomeAssets/css/slider/cssfull.css")}}">
     <link rel="stylesheet" href="{{asset("HomeAssets/css/font-awesome.min.css")}}">
     <link rel="stylesheet" href="{{asset("HomeAssets/css/style.css")}}">
+    <link rel="stylesheet" href="{{asset("HomeAssets/css/basket.css")}}">
 
 
     <link rel="stylesheet" href="{{asset("HomeAssets/css/slider/css1.css")}}" media="screen and (max-width: 1365px)"/>

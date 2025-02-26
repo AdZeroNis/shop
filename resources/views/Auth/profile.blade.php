@@ -43,7 +43,7 @@
 
                                     <!-- Optionally, you can add a button to edit profile or log out -->
                                     <div class="d-flex justify-content-center">
-                                        <a href="" class="btn btn-primary">ویرایش پروفایل</a>
+                                        <a href="{{route("editProfile",$user->id)}}" class="btn btn-primary" style=" background-color: #007bff;">ویرایش پروفایل</a>
                                     </div>
 
                                 </div>

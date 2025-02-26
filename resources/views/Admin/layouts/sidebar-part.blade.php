@@ -90,6 +90,7 @@
                     <li>
                         <a href="{{route("Account.Product.Products")}}"> لیست  محصولات</a>
                     </li>
+                
                 </ul>
             </li>
             <li class="menu">
@@ -133,7 +134,7 @@
                 </a>
                 <ul class="collapse submenu list-unstyled show" id="dashboard" data-parent="#accordionExample">
                     <li class="active">
-                        <a href="{{route('Account.Category.Create')}}">  لیست سبد خرید</a>
+                        <a href="{{route('Account.Basket.show')}}">  لیست سبد خرید</a>
                     </li>
 
                 </ul>
@@ -156,12 +157,11 @@
                 </a>
                 <ul class="collapse submenu list-unstyled show" id="dashboard" data-parent="#accordionExample">
                     <li class="active">
-                        <a href="{{route('Account.Category.Create')}}">  لیست سفارشات</a>
+                        <a href="{{route('Account.Order.show')}}">  لیست سفارشات</a>
                     </li>
 
                 </ul>
             </li>
-
 
     </nav>
 </div>

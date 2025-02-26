@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('basket', function (Blueprint $table) {
+        Schema::create('baskets', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable()->constrained('users');  // Assuming the users table is named 'users'
+            $table->foreignId('user_id')->nullable()->constrained('users'); 
             $table->foreignId('product_id')->nullable()->constrained('products');
             $table->integer('quantity')->default(1);
-            $table->timestamps();  // Adds both created_at and updated_at fields
+            $table->timestamps();
         });
 
     }

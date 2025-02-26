@@ -11,6 +11,8 @@ use App\Http\Controllers\Account\ProductController;
 use App\Http\Controllers\Account\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Home\BasketController;
+use App\Http\Controllers\Home\OrderController;
 
 // مسیرهای مربوط به مدیریت (فقط برای کاربران ادمین)
 Route::middleware([IsAdmin::class])->prefix("Account")->group(function () {
@@ -45,10 +47,31 @@ Route::middleware([IsAdmin::class])->prefix("Account")->group(function () {
         Route::get('/Edit/{id}', [UserController::class, "Edit"])->name('Account.User.Edit');
         Route::post('/Update/{id}', [UserController::class, "update"])->name('Account.User.update');
         Route::get('/Delete/{id}', [UserController::class, "Delete"])->name('Account.User.Delete');
+
+
+
+Route::get('/user/{id}/orders', [OrderController::class, 'userOrders'])->name('Account.User.Orders');
+
+
+
     });
     Route::prefix("dashboard")->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'count'])->name('dashboard');
 
+
+    });
+    Route::prefix("basket")->group(function () {
+
+        Route::get('/show', [BasketController::class, 'showBasketAdmin'])->name('Account.Basket.show');
+        Route::get('/Delete/{id}', [BasketController::class, "Delete"])->name('Account.Basket.Delete');
+        Route::patch('/updateQuantity/{id}', [BasketController::class, 'updateQuantity'])->name('basket.updateQuantity');
+
+
+    });
+
+    Route::prefix("order")->group(function () {
+        Route::get('orders', [OrderController::class, 'adminOrders'])->name('Account.Order.show');
+        Route::put('/update/{id}', [OrderController::class, 'updateOrderStatus'])->name('admin.updateOrderStatus');
     });
 });
 
@@ -56,6 +79,8 @@ Route::middleware([IsAdmin::class])->prefix("Account")->group(function () {
 Route::namespace("Home")->group(function () {
     Route::get('/', [HomeController::class, "Home"])->name('Home');
     Route::get('/product/{id}', [HomeController::class, "product"])->name('product');
+    Route::get('category/{id}/products', [HomeController::class, 'showCategoryProducts'])->name('category.products');
+
 });
 
 // مسیرهای مربوط به اسلایدر
@@ -75,8 +100,23 @@ Route::namespace("Auth")->group(function () {
     Route::post('/Login', [AuthController::class, "Login"])->name('Login');
 
     Route::get('/profile', [AuthController::class, 'ShowProfile'])->name('ShowProfile');
+    Route::get('/Edit/{id}', [AuthController::class, "EditProfile"])->name('editProfile');
+    Route::post('/Update/{id}', [AuthController::class, "updateProfile"])->name('updateProfile');
+    Route::post('/logout', [AuthController::class, 'Logout'])->name('Logout');
+
+
+    Route::post('/order', [OrderController::class, 'store'])->name('order.factor');
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
 
 });
+
+Route::prefix("basket")->group(function () {
+    Route::post('/add', [BasketController::class, 'addToBasket'])->name('basket.add');
+    Route::get('/DeleteBasket/{id}', [BasketController::class, "DeleteUser"])->name('basket.Delete');
+    Route::get('/basket', [BasketController::class, 'showFactor'])->name('basket.Factor');
+
+});
+
 
 
 

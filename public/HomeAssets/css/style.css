@@ -43,10 +43,10 @@ a {
 }
 
 .logo {
-    height: 59px;
+    height: 55px;
     display: block;
     text-align: right;
-    background: url("https://ibolak.com/storage/image/2024/6/1718807353-TCMlDRbPFbA1CHFG.svg") no-repeat 100%;
+    background: url("https://www.irantimer.com/Images/Style_v2/Logo_IT_Black.png") no-repeat 100%;
     background-size: auto 100%;
 }
 
@@ -246,7 +246,7 @@ a {
     height: 100%;
     width: 100%;
     max-width: 100%;
-    background-image: url(https://ibolak.com/storage/image/2024/8/1723454409-8xNmPrzWuTw3diVt.gif);
+    background-image: url(https://gooshishop.com/images/thumbs/n/Entity/0076331_desktop-6.jpeg);
     margin: 0 auto;
     background-size: auto 100%;
     background-repeat: no-repeat;
@@ -1105,10 +1105,10 @@ input[type="checkbox"].bigswitch.ios-switch:checked + div > div {
 }
 
 .product-info .product-title {
-    font-size: 15px;
-    line-height: 1.467;
-    color: #494944;
-    font-weight: 400;
+    font-size: 30px;
+    line-height: 2.467;
+    color: #007bff;
+    font-weight: 1000;
 }
 
 .product-info .product-title span {
@@ -1226,8 +1226,8 @@ input[type="checkbox"].bigswitch.ios-switch:checked + div > div {
 .btn_custom2 {
     padding: 16px 18px 16px 18px;
     border-radius: 8px;
-    background: #00bfd6;
-    border: 1px solid #41a7b4;
+    background: #007bff;
+    border: 1px solid #007bff;
     color: #fff;
 }
 

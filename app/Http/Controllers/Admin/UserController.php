@@ -43,11 +43,26 @@ public function update(Request $request, $id)
     return redirect()->route("Account.User.Users");
 }
 
-public function Delete($id){
-    $user=User::find($id);
-     $user->delete();
-     Alert::success('موفقیت', ' کاربر با موفقیت حذف شد');
-     return redirect()->route("Account.User.Users");
+public function Delete($id)
+{
+    $user = User::find($id);
+
+
+    if ($user->orders()->exists()) {
+
+        Alert::error('خطا', 'این کاربر دارای سفارش‌های ثبت شده است و نمی‌توان آن را حذف کرد.');
+        return redirect()->route("Account.User.Users");
+    }
+    if ($user->basket()->exists()) {
+
+        Alert::error('خطا', 'این کاربر دارای سبد خرید ثبت شده است و نمی‌توان آن را حذف کرد.');
+        return redirect()->route("Account.User.Users");
+    }
+
+
+    $user->delete();
+    Alert::success('موفقیت', 'کاربر با موفقیت حذف شد');
+    return redirect()->route("Account.User.Users");
 }
 
 
@@ -73,7 +88,7 @@ public function index(Request $request)
 
         if ($request->status == 'active') {
             $query->where('status', 1);
-        } elseif ($request->user_role == 'inactive') {
+        } elseif ($request->status == 'inactive') {
             $query->where('status', 0);
         }
 

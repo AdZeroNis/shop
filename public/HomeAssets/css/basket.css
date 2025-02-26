@@ -1,0 +1,93 @@
+body {
+
+    background-color: #f9f9f9;
+    color: #333;
+    direction: rtl;
+    text-align: right;
+}
+
+.box_cart {
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 900px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th,
+table td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+}
+
+table th {
+    background-color: #f4f4f4;
+    color: #555;
+}
+
+table tr:last-child td {
+    border-bottom: none;
+}
+
+.table-footer {
+    font-weight: bold;
+    background-color: #f9f9f9;
+}
+
+.input-group .form-control {
+    max-width: 60px;
+    text-align: center;
+}
+
+.btn-success {
+    background-color: #007bff !important;
+    border-radius: 8px;
+    padding: 10px 20px;
+    margin-top: 20px;
+    color: white;
+}
+
+.btn-outline-secondary {
+    color: #333;
+    border: 1px solid #ccc;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+.text-right h4 {
+    margin-top: 20px;
+    margin-left: 642px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-danger {
+    color: red;
+}
+
+.bs-tooltip {
+    color: #dc3545;
+    cursor: pointer;
+}
+
+.bs-tooltip:hover {
+    color: #c82333;
+}
