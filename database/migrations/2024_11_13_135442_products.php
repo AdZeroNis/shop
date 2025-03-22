@@ -19,8 +19,9 @@ return new class extends Migration
             $table->string('price');
             $table->string('status')->default(1);
             $table->foreignId('Id_category')->constrained("categories");
-            $table->text('image');+
+            $table->text('image');
             $table->timestamps();
+
         });
     }
 

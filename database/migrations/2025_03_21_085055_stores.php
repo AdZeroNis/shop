@@ -9,15 +9,17 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('order_items', function (Blueprint $table) {
+        Schema::create('stores', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('order_id')->nullable()->constrained('orders');
-            $table->foreignId('product_id')->nullable()->constrained('products');
-            $table->timestamps();  // Adds both created_at and updated_at fields
+            $table->string('name');
+            $table->string('address');
+            $table->text('image');
+            $table->string('phone_number');
+            $table->foreignId('admin_id')->constrained('users');
+            $table->timestamps();
         });
-
     }
 
     /**

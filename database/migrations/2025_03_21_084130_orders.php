@@ -19,9 +19,8 @@ return new class extends Migration
             $table->timestamp('created_at')->useCurrent();
             $table->string('status')->default('0');
             $table->foreignId('product_id')->nullable()->constrained('products')->onDelete('set null');
-            $table->timestamps();
+       
         });
-
     }
 
     /**

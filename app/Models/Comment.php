@@ -1,14 +1,15 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Basket extends Model
+class Comment extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'product_id', 'quantity'];
+    protected $fillable = ['content', 'user_id', 'product_id', 'article_id'];
 
     public function user()
     {
@@ -19,5 +20,9 @@ class Basket extends Model
     {
         return $this->belongsTo(Product::class);
     }
-}
 
+    public function article()
+    {
+        return $this->belongsTo(Article::class);
+    }
+}

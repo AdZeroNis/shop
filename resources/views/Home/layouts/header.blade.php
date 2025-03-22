@@ -4,17 +4,7 @@
             <span class="logo"></span>
         </div>
         <div class="col-lg-6 col-md-4 col-sm-3 col-6">
-            {{-- <form action="{{ route('search') }}" method="GET">
-                <div class="input-group input-group-sm">
-                    <input type="text" name="query" class="form-control rounded-right input_search"
-                           placeholder="نام کالا , برند و یا دسته مورد نظر خود را جستجو کنید..">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text custom-input-group-text rounded-left">
-                            <button type="submit" style="background: none; border: none;"><i class="material-icons">search</i></button>
-                        </div>
-                    </div>
-                </div>
-            </form> --}}
+            <!-- فضای خالی برای محتوای دیگر -->
         </div>
         <div class="col-lg-4 col-md-5 col-sm-6 col-12 d-flex justify-content-end align-items-center">
             <div class="dropdown mr-3">
@@ -38,37 +28,48 @@
                                     <button onclick="location.href='{{ route('orders.index') }}'" class="dropdown-item border-0 dropdown-item_custom" type="button">
                                         <i class="material-icons profile_link pr-2"></i> سفارشات
                                     </button>
-
                             @else
                                 <li class="list-group-item">No orders found</li>
                             @endif
                         </ul>
                     </div>
 
-
                     <!-- لینک به پنل پروفایل یا ادمین -->
                     <div class="dropdown-divider"></div>
                     <div class="text-left">
-                        @if (auth()->user()->user_role == 1)
+                        @if (auth()->user()->role == 'super_admin')
                             <!-- لینک به پنل ادمین -->
                             <button onclick="location.href='{{ route('dashboard') }}'" class="dropdown-item border-0 dropdown-item_custom" type="button">
                                 <i class="material-icons profile_link pr-2"></i>پنل ادمین
                             </button>
+                        @elseif (auth()->user()->role == 'admin')
+                            <!-- لینک به پنل مغازه -->
+                            <button onclick="location.href='{{ route('store.stores') }}'" class="dropdown-item border-0 dropdown-item_custom" type="button">
+                                <i class="material-icons profile_link pr-2"></i>مغازه
+                            </button>
+                        @else
+                            <!-- لینک همکاری با ما برای کاربران عادی -->
+                            <button onclick="location.href='{{ route('store.question') }}'" class="dropdown-item border-0 dropdown-item_custom" type="button">
+                                <i class="material-icons profile_link pr-2"></i>همکاری با ما
+                            </button>
                         @endif
+
+                        <!-- لینک به پروفایل -->
                         <button onclick="location.href='{{ route('ShowProfile', ['id' => auth()->user()->id]) }}'" class="dropdown-item border-0 dropdown-item_custom" type="button">
                             <i class="material-icons profile_link pr-2"></i>پروفایل
                         </button>
+
+                        <!-- لینک خروج -->
                         <form id="logout-form" action="{{ route('Logout') }}" method="POST" style="display: none;">
                             @csrf
                         </form>
-
                         <button onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="dropdown-item border-0 dropdown-item_custom" type="button">
                             <i class="material-icons profile_link pr-2"></i>خروج
                         </button>
-
                     </div>
                 </div>
                 @else
+                <!-- اگر کاربر لاگین نکرده باشد -->
                 <a class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
                    aria-expanded="false" style="line-height: 52px !important;
                    background-color: #007bff;
@@ -89,12 +90,13 @@
                 </div>
                 @endauth
             </div>
+
+            <!-- سبد خرید -->
             <a href="{{route('basket.Factor')}}" class="btn btn-outline-info" style="@auth
                 padding: 10px;
-    border-radius: 7px;
-
-    padding-left: 23px;
-    padding-right: 23px;
+                border-radius: 7px;
+                padding-left: 23px;
+                padding-right: 23px;
             @endauth"><i class="material-icons shopping_cart"></i> سبد خرید</a>
         </div>
     </div>

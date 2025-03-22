@@ -5,14 +5,17 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Home\HomeController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Home\OrderController;
+use App\Http\Controllers\Home\BasketController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Home\ProfileController;
 use App\Http\Controllers\Account\ProductController;
-use App\Http\Controllers\Account\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Home\BasketController;
-use App\Http\Controllers\Home\OrderController;
+use App\Http\Controllers\Account\CategoryController;
+use App\Http\Controllers\Cooperation\CooperationController;
+use App\Http\Controllers\Store\StoreController;
+use App\Http\Controllers\StoreController as ControllersStoreController;
 
 // مسیرهای مربوط به مدیریت (فقط برای کاربران ادمین)
 Route::middleware([IsAdmin::class])->prefix("Account")->group(function () {
@@ -117,7 +120,15 @@ Route::prefix("basket")->group(function () {
 
 });
 
-
+Route::prefix('store')->group(function(){
+    Route::get('/stores/question', [StoreController::class, 'question'])->name('store.question');
+    Route::get('/stores/create', [StoreController::class, 'create'])->name('store.create');
+    Route::post('/stores', [StoreController::class, 'store'])->name('store.store');
+    Route::get('/stores', [StoreController::class, "stores"])->name('store.stores');
+    Route::get('/Edit/{id}', [StoreController::class, "Edit"])->name('store.Edit');
+    Route::post('/Update/{id}', [StoreController::class, "update"])->name('store.update');
+    Route::get('/Delete/{id}', [StoreController::class, "Delete"])->name('store.Delete');
+});
 
 
 

@@ -10,33 +10,82 @@ use App\Models\productimages;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\File;
-
+use Illuminate\Support\Facades\Auth;
 class ProductController extends Controller
 {
-    public function show(){
+    public function show()
+    {
+        $storeId = Auth::user()->store_id;
 
-        $categories=Category::all();
-        return view("Admin.product.createProduct",compact("categories"));
+
+        $categories = Category::where('store_id', $storeId)->get();
+
+        return view("Admin.product.createProduct", compact("categories"));
     }
     public function storeProduct(Request $request)
     {
-        if($request->hasFile("image")){
-        $imageName=time().".".$request->image->extension();
-        $request->image->move(public_path("AdminAssets\Product-image"),$imageName);
-        $dataForm=$request->all();
-        $dataForm["image"]=$imageName;
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'status' => 'required|in:0,1,2',
+            'description' => 'required',
+            'inventory' => 'required',
+            'price' => 'required',
+            'image' => 'required',
+            'Id_category' => 'required|exists:categories,id',
+        ]);
 
-        Product::create($dataForm);
-        Alert::success('موفقیت', 'دسته بندی با موفقیت اضافه شد');
-        return redirect()->route("Account.Product.Products");
+        if (is_null(Auth::user()->store_id)) {
+            Alert::error('خطا', 'شما به یک مغازه اختصاص داده نشده‌اید.');
+            return redirect()->back();
         }
+
+        if ($request->hasFile("image")) {
+            $imageName = time() . "." . $request->image->extension();
+            $request->image->move(public_path("AdminAssets/Product-image"), $imageName);
+
+            Product::create([
+                'name' => $request->input('name'),
+                'Id_category' => $request->input('Id_category'), // Correct category field
+                'store_id' => Auth::user()->store_id,
+                'description' => $request->input('description'),
+                'inventory' => $request->input('inventory'),
+                'price' => $request->input('price'),
+                'status' => $request->input('status'),
+                'image' => $imageName,
+            ]);
+
+            Alert::success('موفقیت', 'محصول با موفقیت اضافه شد');
+            return redirect()->route("Account.Product.Products");
+        }
+
+        Alert::error('خطا', 'تصویر محصول بارگذاری نشد.');
+        return redirect()->back();
     }
 
-    public function Products(){
-        $products=Product::all();
-        $categories=Category::all();
-        return view("Admin.Product.Products",compact("products","categories"));
+
+
+
+
+    public function Products()
+    {
+        $user = Auth::user();
+
+        if ($user->role == 'super_admin') {
+            // اگر کاربر سوپر ادمین است، همه محصولات و دسته‌بندی‌ها را نمایش بده
+            $products = Product::all();
+            $categories = Category::all();
+        } else {
+            // اگر کاربر ادمین مغازه است، فقط محصولات و دسته‌بندی‌های مغازه خود را نمایش بده
+            $storeId = $user->store_id;
+            $products = Product::where('store_id', $storeId)->get();
+            $categories = Category::where('store_id', $storeId)->get(); // فیلتر دسته‌بندی‌ها بر اساس مغازه
+        }
+
+        return view("Admin.Product.Products", compact("products", "categories"));
     }
+
+
+
     public function Edit($id){
         $categories=Category::all();
         $product= product::find($id);
@@ -80,38 +129,46 @@ public function Delete($id){
 }
 public function index(Request $request)
 {
+    $user = Auth::user();
     $query = Product::query();
 
+    // جستجو بر اساس نام محصول
     if ($request->has('search') && $request->search != '') {
         $query->where('name', 'like', '%' . $request->search . '%');
     }
 
-
+    // فیلتر بر اساس وضعیت محصول
     if ($request->has('status') && $request->status !== '') {
-
         if ($request->status == 'active') {
             $query->where('status', 1);
         } elseif ($request->status == 'inactive') {
             $query->where('status', 0);
         }
     }
+
+    // فیلتر بر اساس دسته‌بندی
     if ($request->has('Id_category') && $request->Id_category != '') {
-        $query->whereHas('category', function ($q) use ($request) {
-            $q->where('id', $request->Id_category);
-        });
+        $query->where('Id_category', $request->Id_category);
     }
 
-    $products = $query->get();
+    // اگر کاربر سوپر ادمین است، همه محصولات و دسته‌بندی‌ها را نمایش بده
+    if ($user->role == 'super_admin') {
+        $products = $query->get();
+        $categories = Category::all(); // همه دسته‌بندی‌ها
+    } else {
+        // اگر کاربر ادمین فروشگاه است، فقط محصولات و دسته‌بندی‌های مربوط به فروشگاه خود را نمایش بده
+        $storeId = $user->store_id;
+        $products = $query->where('store_id', $storeId)->get();
+        $categories = Category::where('store_id', $storeId)->get(); // فقط دسته‌بندی‌های فروشگاه خود
+    }
 
-
-    $categories = Category::all();
-
-    return view('Admin.product.Index', [
+    return view('Admin.product.products', [
         'products' => $products,
-        'categories' => $categories,
+        'categories' => $categories,  // ارسال دسته‌بندی‌های فیلتر شده به ویو
         'search' => $request->search,
         'status' => $request->status,
         'Id_category' => $request->Id_category
     ]);
 }
+
 }
