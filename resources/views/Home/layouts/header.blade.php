@@ -1,20 +1,53 @@
-<div class="container-fluid shadow-sm bg-white">
+<div class="container-fluid shadow-sm bg-white" style="background-color: #C78853 !important">
     <div class="row p-3 align-items-center">
         <div class="col-lg-2 col-md-3 col-sm-3 col-6 pr-2 box-logo">
             <span class="logo"></span>
         </div>
         <div class="col-lg-6 col-md-4 col-sm-3 col-6">
-            <!-- فضای خالی برای محتوای دیگر -->
+            <!-- اضافه کردن لینک مقالات در این قسمت -->
+            <a href="{{ route('article') }}"
+               style="color: #455947; text-decoration: none; font-weight: 500; font-size: 1.1rem;"
+               onmouseover="this.style.color='#C78853'"
+               onmouseout="this.style.color='#455947'">
+                مقالات
+            </a>
         </div>
-        <div class="col-lg-4 col-md-5 col-sm-6 col-12 d-flex justify-content-end align-items-center">
-            <div class="dropdown mr-3">
+
+        <div class="col-lg-4 col-md-5 col-sm-6 col-12 d-flex justify-content-end align-items-center" style="margin: -72px">
+            <form method="get" action="" class="search-wrapper mx-auto" style="position: relative; width: 100%; max-width: 400px;">
+                <span class="search-wrapper-icon" style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%);">
+                    {{-- <img src="https://ibolak.com/assets/icons/search.svg" alt="Search Icon" /> --}}
+                </span>
+                <input
+                    name="search_key"
+                    autocomplete="off"
+                    maxlength="100"
+                    type="text"
+                    placeholder="جستجو  "
+                    class="form-control"
+                    style="
+                        padding-left: 40px;
+                        padding-right: 15px;
+                        border-radius: 25px;
+                        background-color: #FBE4D6;
+                        color: #455947;
+                        border: 1px solid #C78853;
+                        height: 55px;
+                        box-shadow: none;
+               
+                    "
+                />
+            </form>
+
+
+            <div class="dropdown mr-3" style="margin-left: -5rem !important">
                 @auth
                 <a class="dropdown-toggle text-primary" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                   aria-expanded="false" style="line-height: 52px !important;
-                   background-color: #007bff;
+                   aria-expanded="false" style="line-height: 30px !important;
+                   background-color: #FBE4D6;
                    padding: 0.75rem 1.75rem;
                    border-radius: 11px;
-                   color: white !important;">
+                   color: #455947 !important;">
                    {{ auth()->user()->name }}
                 </a>
 
@@ -92,12 +125,14 @@
             </div>
 
             <!-- سبد خرید -->
-            <a href="{{route('basket.Factor')}}" class="btn btn-outline-info" style="@auth
+            {{-- <a href="{{route('basket.Factor')}}" class="btn btn-outline-info" style="@auth
                 padding: 10px;
                 border-radius: 7px;
                 padding-left: 23px;
                 padding-right: 23px;
-            @endauth"><i class="material-icons shopping_cart"></i> سبد خرید</a>
+                   background-color: #FBE4D6;
+                   color: #455947 !important;
+            @endauth"><i class="material-icons shopping_cart"></i> سبد خرید</a> --}}
         </div>
     </div>
 </div>

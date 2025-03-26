@@ -13,6 +13,7 @@ use App\Http\Controllers\Home\ProfileController;
 use App\Http\Controllers\Account\ProductController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Account\CategoryController;
+use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Cooperation\CooperationController;
 use App\Http\Controllers\Store\StoreController;
 use App\Http\Controllers\StoreController as ControllersStoreController;
@@ -42,6 +43,7 @@ Route::middleware([IsAdmin::class])->prefix("Account")->group(function () {
         Route::get('/Edit/{id}', [ProductController::class, "Edit"])->name('Account.Product.Edit');
         Route::post('/Update/{id}', [ProductController::class, "update"])->name('Account.Product.update');
         Route::get('/Delete/{id}', [ProductController::class, "Delete"])->name('Account.Product.Delete');
+        Route::get('/product/details/{id}', [ProductController::class, 'details'])->name('Account.Product.DetailsProduct');
     });
     Route::prefix("User")->group(function () {
         Route::get('/index', [UserController::class, 'index'])->name('Account.User.Index');
@@ -50,10 +52,8 @@ Route::middleware([IsAdmin::class])->prefix("Account")->group(function () {
         Route::get('/Edit/{id}', [UserController::class, "Edit"])->name('Account.User.Edit');
         Route::post('/Update/{id}', [UserController::class, "update"])->name('Account.User.update');
         Route::get('/Delete/{id}', [UserController::class, "Delete"])->name('Account.User.Delete');
-
-
-
 Route::get('/user/{id}/orders', [OrderController::class, 'userOrders'])->name('Account.User.Orders');
+Route::get('/user/details/{id}', [UserController::class, 'details'])->name('Account.User.DetailsUser');
 
 
 
@@ -76,6 +76,16 @@ Route::get('/user/{id}/orders', [OrderController::class, 'userOrders'])->name('A
         Route::get('orders', [OrderController::class, 'adminOrders'])->name('Account.Order.show');
         Route::put('/update/{id}', [OrderController::class, 'updateOrderStatus'])->name('admin.updateOrderStatus');
     });
+    Route::prefix("Article")->group(function () {
+        Route::get('/index', [ArticleController::class, 'index'])->name('Account.Article.Index');
+        Route::get('/show', [ArticleController::class, "show"])->name('Account.Article.show');
+        Route::post('/create', [ArticleController::class, "store"])->name('Account.Article.store');
+        Route::get('/Products', [ArticleController::class, "Articles"])->name('Account.Article.Articles');
+        Route::get('/Edit/{id}', [ArticleController::class, "Edit"])->name('Account.Article.Edit');
+        Route::post('/Update/{id}', [ArticleController::class, "update"])->name('Account.Article.update');
+        Route::get('/Delete/{id}', [ArticleController::class, "Delete"])->name('Account.Article.Delete');
+        // Route::get('/product/details/{id}', [ProductController::class, 'details'])->name('Account.Product.DetailsProduct');
+    });
 });
 
 // مسیرهای عمومی (بدون نیاز به ادمین)
@@ -83,7 +93,9 @@ Route::namespace("Home")->group(function () {
     Route::get('/', [HomeController::class, "Home"])->name('Home');
     Route::get('/product/{id}', [HomeController::class, "product"])->name('product');
     Route::get('category/{id}/products', [HomeController::class, 'showCategoryProducts'])->name('category.products');
-
+    Route::get('/store/{id}/products', [HomeController::class, 'showStoreProducts'])->name('store.products');
+    Route::get('/article', [HomeController::class, "articles"])->name('article');
+    Route::get('/article/{id}', [HomeController::class, "Showarticles"])->name('Showarticles');
 });
 
 // مسیرهای مربوط به اسلایدر
@@ -128,6 +140,7 @@ Route::prefix('store')->group(function(){
     Route::get('/Edit/{id}', [StoreController::class, "Edit"])->name('store.Edit');
     Route::post('/Update/{id}', [StoreController::class, "update"])->name('store.update');
     Route::get('/Delete/{id}', [StoreController::class, "Delete"])->name('store.Delete');
+    Route::get('/store/details/{id}', [StoreController::class, 'details'])->name('Store.DetailsStore');
 });
 
 

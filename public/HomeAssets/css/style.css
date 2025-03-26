@@ -43,11 +43,11 @@ a {
 }
 
 .logo {
-    height: 55px;
+    height: 83px;
     display: block;
     text-align: right;
-    background: url("https://www.irantimer.com/Images/Style_v2/Logo_IT_Black.png") no-repeat 100%;
-    background-size: auto 100%;
+    background: url(../img/icon-removebg-preview.png) no-repeat 100%;
+    background-size: auto 115px;
 }
 
 .custom-input-group-text {
@@ -242,17 +242,17 @@ a {
     border-radius: 5px;
 }
 
-.top_banner div {
+/* .top_banner div {
     height: 100%;
     width: 100%;
     max-width: 100%;
-    background-image: url(https://gooshishop.com/images/thumbs/n/Entity/0076331_desktop-6.jpeg);
+
     margin: 0 auto;
     background-size: auto 100%;
     background-repeat: no-repeat;
     background-position: center;
 
-}
+} */
 
 .prev {
     transition: .5s;
@@ -480,7 +480,7 @@ a {
 }
 
 .bg_footer {
-    background: #eceff1;
+    background: #C78853;
 }
 
 .box_footer_links p a {
@@ -1660,8 +1660,8 @@ input[type="checkbox"].bigswitch.ios-switch:checked + div > div {
 
 .btn-outline-info:hover {
     color: #fff;
-    background-color: #6c757d;
-    border-color: #6c757d;
+    background-color: #D4BDA1;
+    border-color: #D4BDA1;
 }
 
 

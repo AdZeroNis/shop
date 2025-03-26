@@ -1,6 +1,7 @@
 @extends("Home.layouts.master")
 
 @section('content')
+
 <a href="#">
     <div class="container-fluid mt-2">
         <div class="top_banner box_shadow">
@@ -9,32 +10,27 @@
     </div>
 </a>
 
-<!-- Start slider for categories and products -->
-<div class="container-fluid mt-3">
-    <div class="row">
-        @foreach ($products as $product) <!-- Looping through products -->
+<!-- Display products -->
+<div class="container mt-5"> <!-- Changed container-fluid to container for centering -->
+    <div class="row justify-content-center"> <!-- Added justify-content-center to center the cards -->
+        @foreach ($products as $product)
         @if ($product->status == 1) <!-- Only show active products -->
-        <div class="col-md-3 col-sm-6 mb-3"> <!-- Display products in a 4-column grid for large screens and 2-column for small screens -->
-            <section class="slider box_shadow">
-                <div class="card-body">
-                    <div class="item">
-                        <a href="{{ route('product', $product->id) }}">
-                            <div class="card panel-custom">
-                                <div class="card-body panel-body-custom">
-                                    <img src="{{ asset('AdminAssets/Product-image/'.$product->image) }}" alt="{{ $product->name }}" style="width:303px !important;">
-                                </div>
-                                <div class="card-footer panel-footer-custom">
-                                    <h4>{{ $product->name }}</h4>
-                                    <p>{{ $product->price }} تومان</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+        <div class="col-md-3 col-sm-6 mb-4"> <!-- Display products in a 4-column grid for large screens and 2-column for small screens -->
+            <div class="card h-100 product-card box_shadow" style="max-width: 250px;"> <!-- Added max-width to make cards smaller -->
+                <a href="{{ route('product', $product->id) }}" class="text-decoration-none">
+                    <img src="{{ asset('AdminAssets/Product-image/'.$product->image) }}" class="card-img-top" alt="{{ $product->name }}" style="object-fit: cover; height: 150px;"> <!-- Reduced image height -->
+                </a>
+                <div class="card-body text-center">
+                    <a href="{{ route('product', $product->id) }}" class="text-dark text-decoration-none">
+                        <h5 class="card-title" style="font-size: 16px;">{{ $product->name }}</h5> <!-- Reduced font size -->
+                    </a>
+                    <p class="card-text mt-2" style="font-size: 14px;">{{ $product->price }} تومان</p> <!-- Reduced font size -->
                 </div>
-            </section>
+            </div>
         </div>
         @endif
-        @endforeach <!-- End of the product loop -->
+        @endforeach
     </div>
 </div>
+
 @endsection

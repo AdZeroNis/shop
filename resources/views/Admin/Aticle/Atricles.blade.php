@@ -14,10 +14,17 @@
                         </div>
                     </div>
                     <div class="widget-content widget-content-area">
-                        <form method="GET" action="{{ route('Account.Product.Index') }}" class="mb-4">
+                        <form method="GET" action="{{route('Account.Article.Index')}}" class="mb-4">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <input type="text" name="search" class="form-control" placeholder="جستجو بر اساس نام محصول" value="{{ request('search') }}">
+                                    <select name="Id_article" class="selectpicker form-control p-2">
+                                        <option value="">تمام مقالات</option>
+                                        @foreach ($articles as $article)
+                                            <option value="{{ $article->id }}" {{ request('Id_article') == $article->id ? 'selected' : '' }}>
+                                                {{ $article->title }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="col-md-4">
                                     <select name="status" class="form-control">
@@ -26,16 +33,7 @@
                                         <option value="inactive" {{ request('status') == 'inactive' ? 'selected' : '' }}>غیرفعال</option>
                                     </select>
                                 </div>
-                                <div class="col-md-4">
-                                    <select name="Id_category" class="selectpicker form-control p-2">
-                                        <option value="">تمام دسته‌بندی‌ها</option>
-                                        @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}" {{ request('Id_category') == $category->id ? 'selected' : '' }}>
-                                                {{ $category->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
+
                                 <div class="col-md-4">
                                     <button type="submit" class="btn btn-primary" style="margin: 5px">جستجو</button>
                                 </div>
@@ -46,51 +44,44 @@
                             <table id="style-3" class="table style-3  table-hover">
                                 <thead>
                                     <tr>
-                                        <th>نام محصول</th>
-                                        <th> قیمت محصول</th>
-                                        <th class="text-center">تعداد موجودی</th>
+                                        <th>نام مقاله</th>
+
                                         <th class="text-center">تصویر</th>
                                         <th class="text-center">وضیعت</th>
                                         <th class="text-center">عمل</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @php
-                                        $totalInventory = 0;
-                                    @endphp
-                                    @foreach ($products as $product)
+
+                                    @foreach ($articles as $article)
                                     <tr>
-                                        <td>{{ Str::limit($product->name, 25, "...") }}</td>
-                                        <td>{{ $product->price }}</td>
-                                        <td>{{ $product->inventory }}</td>
-                                        @php
-                                            $totalInventory += $product->inventory;
-                                        @endphp
+                                        <td>{{ Str::limit($article->title, 25, "...") }}</td>
+
 
 
                                         <td class="text-center">
-                                            <span><img src="{{ asset("AdminAssets/Product-image/".$product->image) }}" width="65px" class="profile-img" alt="avatar"></span>
+                                            <span><img src="{{ asset("AdminAssets/Aticles-image/".$article->image) }}" width="65px" class="profile-img" alt="avatar"></span>
                                         </td>
                                         <td class="text-center">
-                                            <span class="shadow-none badge badge-{{ $product->status == '1' ? 'success' : 'danger' }}">
-                                                {{ $product->status == '1' ? 'فعال' : 'غیرفعال' }}
+                                            <span class="shadow-none badge badge-{{ $article->status == '1' ? 'success' : 'danger' }}">
+                                                {{ $article->status == '1' ? 'فعال' : 'غیرفعال' }}
                                             </span>
                                         </td>
                                         <td class="text-center">
                                             <ul class="table-controls">
-                                                <a href="{{ route("Account.Product.Edit", $product->id) }}" class="bs-tooltip" data-toggle="tooltip" data-placement="top" title="ویرایش">
+                                                <a href="{{route('Account.Article.Edit',$article->id)}}" class="bs-tooltip" data-toggle="tooltip" data-placement="top" title="ویرایش">
                                                     <svg class="w-6 h-6 text-gray-800 dark:text-white"
                                                          xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z" />
                                                     </svg>
                                                 </a>
-                                                <a href="{{ route("Account.Product.Delete", $product->id) }}" class="bs-tooltip" data-toggle="tooltip" data-placement="top" title="حذف">
+                                                <a href="{{route('Account.Article.Delete',$article->id)}}" class="bs-tooltip" data-toggle="tooltip" data-placement="top" title="حذف">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                                         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
                                                         <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
                                                     </svg>
                                                 </a>
-                                                <a href="{{ route('Account.Product.DetailsProduct', $product->id) }}" class="bs-tooltip" data-toggle="tooltip" data-placement="top" title="سفارشات کاربر">
+                                                <a href="" class="bs-tooltip" data-toggle="tooltip" data-placement="top" title="سفارشات کاربر">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
                                                         <path fill-rule="evenodd" d="M2.5 13.5a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-11zm0-4a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-11zm0-4a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-11z"/>
                                                     </svg>
@@ -99,13 +90,6 @@
                                         </td>
                                     </tr>
                                     @endforeach
-
-                                    <!-- سطر برای نمایش جمع موجودی -->
-                                    <tr>
-                                        <td colspan="2" class="text-right font-weight-bold">جمع کل موجودی:</td>
-                                        <td class="text-center font-weight-bold">{{ $totalInventory }}</td>
-                                        <td colspan="5"></td>
-                                    </tr>
 
                                 </tbody>
                             </table>

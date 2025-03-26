@@ -15,7 +15,7 @@
         <div class="overlay"></div>
         <div class="search-overlay"></div>
         @include('Admin.layouts.Sidebar-part')
-        <div id="content" class="main-content">
+        <div id="content" class="main-content" style="background-color: #C9D9C3 !important">
             @yield("content")
             @include('Admin.layouts.footer-tag')
         </div>

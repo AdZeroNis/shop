@@ -58,8 +58,18 @@ class StoreController extends Controller
     public function Stores()
     {
 
-        $userId = Auth::id();
-        $stores = Store::where('admin_id', $userId)->get();
+        $user = Auth::user();
+
+        if ($user->role == 'super_admin') {
+
+            $stores = Store::all();
+
+        } else {
+
+            $storeId = $user->store_id;
+            $stores = Store::where('id', $storeId)->get();
+
+        }
 
         return view('store.stores', compact("stores"));
     }
@@ -119,6 +129,37 @@ class StoreController extends Controller
         Alert::success('موفقیت', 'مغازه با موفقیت حذف شد');
         return redirect()->route("Home");
     }
+    public function details($id)
+    {
 
+        $currentUser = Auth::user();
+
+        if ($currentUser->role == 'super_admin') {
+
+            $store = Store::find($id);
+
+
+            if (!$store) {
+                Alert::error('خطا', 'مغازه مورد نظر یافت نشد.');
+                return redirect()->back();
+            }
+
+            $user = $store->user;
+
+            return view('store.details', compact('user', 'store'));
+        }
+
+        $store = $currentUser;
+
+
+        if (is_null($store->user)) {
+            Alert::error('خطا', 'شما به یک مغازه اختصاص داده نشده‌اید.');
+            return redirect()->back();
+        }
+
+        $user = $store->user;
+
+        return view('store.details', compact('user', 'store'));
+    }
 
 }

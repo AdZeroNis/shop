@@ -72,13 +72,13 @@ class ProductController extends Controller
 
         if ($user->role == 'super_admin') {
             // اگر کاربر سوپر ادمین است، همه محصولات و دسته‌بندی‌ها را نمایش بده
-            $products = Product::all();
-            $categories = Category::all();
+            $products = Product::orderBy('created_at', 'desc')->get(); // اصلاح شده
+            $categories = Category::orderBy('created_at', 'desc')->get();
         } else {
             // اگر کاربر ادمین مغازه است، فقط محصولات و دسته‌بندی‌های مغازه خود را نمایش بده
             $storeId = $user->store_id;
-            $products = Product::where('store_id', $storeId)->get();
-            $categories = Category::where('store_id', $storeId)->get(); // فیلتر دسته‌بندی‌ها بر اساس مغازه
+            $products = Product::where('store_id', $storeId)->orderBy('created_at', 'desc')->get(); // این قسمت درست است
+            $categories = Category::where('store_id', $storeId)->orderBy('created_at', 'desc')->get(); ; // فیلتر دسته‌بندی‌ها بر اساس مغازه
         }
 
         return view("Admin.Product.Products", compact("products", "categories"));
@@ -170,5 +170,52 @@ public function index(Request $request)
         'Id_category' => $request->Id_category
     ]);
 }
+public function details($id)
+{
+    $currentUser = Auth::user();
+
+    // اگر کاربر سوپر ادمین است
+    if ($currentUser->role == 'super_admin') {
+
+        // پیدا کردن محصول
+        $product = Product::find($id);
+
+        // بررسی اینکه محصول وجود دارد یا خیر
+        if (!$product) {
+            Alert::error('خطا', 'محصول مورد نظر یافت نشد.');
+            return redirect()->back();
+        }
+
+        // پیدا کردن مغازه مربوط به محصول
+        $store = $product->store;
+
+        // چک کردن اینکه مغازه برای محصول وجود دارد یا خیر
+        if (!$store) {
+            Alert::error('خطا', 'مغازه مربوط به محصول یافت نشد.');
+            return redirect()->back();
+        }
+
+        return view('Admin.product.details', compact('product', 'store'));
+    }
+
+    // اگر کاربر سوپر ادمین نیست و مغازه ادمین فعلی را برمی‌گرداند
+    $store = $currentUser->store;
+
+    if (is_null($store)) {
+        Alert::error('خطا', 'شما به یک مغازه اختصاص داده نشده‌اید.');
+        return redirect()->back();
+    }
+
+    // پیدا کردن محصول مرتبط با مغازه
+    $product = $store->products()->find($id);
+
+    if (!$product) {
+        Alert::error('خطا', 'محصول مورد نظر در مغازه شما یافت نشد.');
+        return redirect()->back();
+    }
+
+    return view('Admin.product.details', compact('product', 'store'));
+}
+
 
 }

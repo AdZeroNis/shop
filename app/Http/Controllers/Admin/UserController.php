@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -75,12 +76,12 @@ public function index(Request $request)
     }
 
 
-    if ($request->has('user_role') && $request->user_role !== '') {
+    if ($request->has('role') && $request->user_role !== '') {
 
-        if ($request->user_role == 'admin') {
-            $query->where('user_role', 1);
-        } elseif ($request->user_role == 'colleague') {
-            $query->where('user_role', 0);
+        if ($request->role == 'admin') {
+            $query->where('role', 'super_admin');
+        } elseif ($request->role == 'colleague') {
+            $query->where('role', 'admin');
         }
 
     }
@@ -97,12 +98,45 @@ public function index(Request $request)
     $Users = $query->get();
 
 
-    return view('Admin.user.index', [
+    return view('Admin.user.users', [
         'Users' => $Users,
         'search' => $request->search,
         'user_role' => $request->user_role,
         'status' => $request->status,
     ]);
 }
+public function details($id)
+{
+
+    $currentUser = Auth::user();
+
+    if ($currentUser->role == 'super_admin') {
+
+        $user = User::find($id);
+
+
+        if (!$user) {
+            Alert::error('خطا', 'کاربر مورد نظر یافت نشد.');
+            return redirect()->back();
+        }
+
+        $store = $user->store;
+
+        return view('Admin.user.details', compact('user', 'store'));
+    }
+
+    $user = $currentUser;
+
+
+    if (is_null($user->store)) {
+        Alert::error('خطا', 'شما به یک مغازه اختصاص داده نشده‌اید.');
+        return redirect()->back();
+    }
+
+    $store = $user->store;
+
+    return view('Admin.user.details', compact('user', 'store'));
+}
+
 
 }

@@ -1,21 +1,6 @@
 <div class="container-fluid pt-2 bg_footer">
     <div class="row">
-        <div class="col-md-3 col-6 serv text-center">
-            <img src="img/serv3.svg" alt="">
-            <p>ضمانت اصل بودن کالا</p>
-        </div>
-        <div class="col-md-3 col-6 serv text-center">
-            <img src="img/serv4.svg" alt="">
-            <p>هفت روز ضمانت بازگشت</p>
-        </div>
-        <div class="col-md-3 col-6 serv text-center">
-            <img src="img/serv2.svg" alt="">
-            <p>پرداخت درب منزل</p>
-        </div>
-        <div class="col-md-3 col-6 serv text-center">
-            <img src="img/serv5.svg" alt="">
-            <p>پشتیبانی همه روزه</p>
-        </div>
+
     </div>
     <div class="container border-bottom"></div>
     <div class="container border-bottom pb-3 pt-3">
@@ -61,17 +46,13 @@
                         <div class="input-group text-right">
                             {{-- <input type="text" class="form-control rounded-right bg-white input_search" placeholder="آدرس ایمیل خود را وارد کنید"> --}}
                             <div class="input-group-prepend">
-                                <div class="input-group-text bg-info border-0 custom-input-group-text rounded-left">
-                                    {{-- <a href="#" class="text-white">ارسال</a> --}}
-                                </div>
+                         
                             </div>
                         </div>
                     </form>
                     <p class="pt-4">ایبولک را در شبکه‌های اجتماعی دنبال کنید:
                     </p>
-                    <div class="social_instagram text-center">
-                        <a href="#"><img src="img/instagrams.svg" class="px-1" alt="">اینستاگرام ایبولک </a>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -87,8 +68,7 @@
                 </ul>
             </div>
             <div class="footer_box_left mr-auto">
-                <a href="#"><img src="img/bazar.png"> </a>
-                <a href="#"><img src="img/sibapp.png"> </a>
+
             </div>
         </div>
     </div>
