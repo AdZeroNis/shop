@@ -1,7 +1,9 @@
 <div class="container-fluid shadow-sm bg-white" style="background-color: #C78853 !important">
     <div class="row p-3 align-items-center">
         <div class="col-lg-2 col-md-3 col-sm-3 col-6 pr-2 box-logo">
-            <span class="logo"></span>
+            <a href="{{route('Home')}}">
+                <span class="logo"></span>
+            </a>
         </div>
         <div class="col-lg-6 col-md-4 col-sm-3 col-6">
             <!-- اضافه کردن لینک مقالات در این قسمت -->
@@ -14,16 +16,16 @@
         </div>
 
         <div class="col-lg-4 col-md-5 col-sm-6 col-12 d-flex justify-content-end align-items-center" style="margin: -72px">
-            <form method="get" action="" class="search-wrapper mx-auto" style="position: relative; width: 100%; max-width: 400px;">
+            <form method="get" action="{{ route('search') }}" class="search-wrapper mx-auto" style="position: relative; width: 364px; max-width: 400px;">
                 <span class="search-wrapper-icon" style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%);">
-                    {{-- <img src="https://ibolak.com/assets/icons/search.svg" alt="Search Icon" /> --}}
+                    <i class="fas fa-search"></i>
                 </span>
                 <input
                     name="search_key"
                     autocomplete="off"
                     maxlength="100"
                     type="text"
-                    placeholder="جستجو  "
+                    placeholder="جستجو در محصولات، مقالات، فروشگاه‌ها..."
                     class="form-control"
                     style="
                         padding-left: 40px;
@@ -34,11 +36,14 @@
                         border: 1px solid #C78853;
                         height: 55px;
                         box-shadow: none;
-               
                     "
+                    value="{{ request('search_key') }}"
                 />
+                <input type="hidden" name="search_type" value="all">
+                <button type="submit" style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%); background: none; border: none; cursor: pointer;">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
             </form>
-
 
             <div class="dropdown mr-3" style="margin-left: -5rem !important">
                 @auth
@@ -51,7 +56,7 @@
                    {{ auth()->user()->name }}
                 </a>
 
-                <div class="dropdown-menu border-0 shadow rounded-0 dropdown-menu_custom text-center"
+                <div class="dropdown-menu border-0 shadow rounded-0 dropdown-menu_custom text-center" style="margin-left: 34px !important;"
                      aria-labelledby="dropdownMenuButton">
                     <!-- لیست سفارشات کاربر -->
                     <div class="dropdown-divider"></div>
@@ -91,7 +96,9 @@
                         <button onclick="location.href='{{ route('ShowProfile', ['id' => auth()->user()->id]) }}'" class="dropdown-item border-0 dropdown-item_custom" type="button">
                             <i class="material-icons profile_link pr-2"></i>پروفایل
                         </button>
-
+                        <button onclick="location.href='{{route('basket.Factor')}}'" class="dropdown-item border-0 dropdown-item_custom" type="button">
+                            <i class="material-icons shopping_cart pr-2"></i> سبد خرید
+                        </button>
                         <!-- لینک خروج -->
                         <form id="logout-form" action="{{ route('Logout') }}" method="POST" style="display: none;">
                             @csrf
@@ -111,8 +118,8 @@
                    color: white !important;">
                    ورود/ثبت نام
                 </a>
-                <div class="dropdown-menu border-0 shadow rounded-0 dropdown-menu_custom text-center"
-                     aria-labelledby="dropdownMenuButton">
+                <div class="dropdown-menu border-0 shadow rounded-0 dropdown-menu_custom text-center" style="margin-left: 34px !important;"
+                aria-labelledby="dropdownMenuButton">
                     <div class="btn login_box">
                         <a class="dropdown-item dropdown-item-custom py-2 btn btn-info" href="{{ route('FormLogin') }}">ورود به حساب</a>
                     </div>
@@ -124,8 +131,8 @@
                 @endauth
             </div>
 
-            <!-- سبد خرید -->
-            {{-- <a href="{{route('basket.Factor')}}" class="btn btn-outline-info" style="@auth
+            {{-- <!-- سبد خرید -->
+            <a href="{{route('basket.Factor')}}" class="btn btn-outline-info" style="@auth
                 padding: 10px;
                 border-radius: 7px;
                 padding-left: 23px;

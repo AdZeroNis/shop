@@ -96,6 +96,7 @@ Route::namespace("Home")->group(function () {
     Route::get('/store/{id}/products', [HomeController::class, 'showStoreProducts'])->name('store.products');
     Route::get('/article', [HomeController::class, "articles"])->name('article');
     Route::get('/article/{id}', [HomeController::class, "Showarticles"])->name('Showarticles');
+    Route::get('/search', [HomeController::class, 'search'])->name('search');
 });
 
 // مسیرهای مربوط به اسلایدر
